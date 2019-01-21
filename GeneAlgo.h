@@ -8,154 +8,154 @@
 #include "Collis.h"
 #include "TentMap.h"
 
-//¿°»öÃ¼ 
+//ì—¼ìƒ‰ì²´ 
 struct Chrom{
 	public:
-	//À¯ÀüÀÚ À§Ä¡µé 
+	//ìœ ì „ì ìœ„ì¹˜ë“¤ 
 	char* locus;
 
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	Chrom();
 
-	//¼Ò¸êÀÚ 
+	//ì†Œë©¸ì 
 	~Chrom();
 };
 
-//»ı¼ºÀÚ
+//ìƒì„±ì
 Chrom::Chrom() : locus(NULL){
 }
 
-//¼Ò¸êÀÚ 
+//ì†Œë©¸ì 
 Chrom::~Chrom(){
 	if (locus != NULL)
 		delete[] locus;	
 }
 
-// ¹®Á¦¸¦ Çª´Â Å¬·¡½º
+// ë¬¸ì œë¥¼ í‘¸ëŠ” í´ë˜ìŠ¤
 class GeneAlgo {
 	public:
-	Chrom* Best; //ÃÖÀûÇØ 
+	Chrom* Best; //ìµœì í•´ 
 	int Fbest;
 	
 	private:
-	//¼¼´ëµé 
-	int Generation; //Çö ¼¼´ë ¹øÈ£. Ã¹ ¼¼´ë´Â 0 °¥¼ö·Ï 1 Áõ°¡ 
-	int NumberGen; //Çö ¼¼´ëÀÇ ÀÎ±¸¼ö 
-	Chrom* Gen; //Çö ¼¼´ë
-	int NumberPar; //ºÎ¸ğ ¼¼´ëÀÇ ÀÎ±¸¼ö 
-	Chrom* Par; //ºÎ¸ğ ¼¼´ë
+	//ì„¸ëŒ€ë“¤ 
+	int Generation; //í˜„ ì„¸ëŒ€ ë²ˆí˜¸. ì²« ì„¸ëŒ€ëŠ” 0 ê°ˆìˆ˜ë¡ 1 ì¦ê°€ 
+	int NumberGen; //í˜„ ì„¸ëŒ€ì˜ ì¸êµ¬ìˆ˜ 
+	Chrom* Gen; //í˜„ ì„¸ëŒ€
+	int NumberPar; //ë¶€ëª¨ ì„¸ëŒ€ì˜ ì¸êµ¬ìˆ˜ 
+	Chrom* Par; //ë¶€ëª¨ ì„¸ëŒ€
 	
-	//ÀûÇÕµµµé 
+	//ì í•©ë„ë“¤ 
 	int Fmax; //
 	int Fmin; //
-	int *Fitness; //¼¼´ëÀÇ ÀûÇÕµµ
+	int *Fitness; //ì„¸ëŒ€ì˜ ì í•©ë„
 	
-	//·ê·¿ 
-	int NumberRou; // ¾Æ·¡ ¹è¿­ÀÇ ±æÀÌ 
-	int *Rou; //·ê·¿ ¹è¿­ 
+	//ë£°ë › 
+	int NumberRou; // ì•„ë˜ ë°°ì—´ì˜ ê¸¸ì´ 
+	int *Rou; //ë£°ë › ë°°ì—´ 
 
 	
 	public:
-	//½ÇÁúÀûÀ¸·Î ¹®Á¦¸¦ Çª´Â ÇÔ¼ö 
+	//ì‹¤ì§ˆì ìœ¼ë¡œ ë¬¸ì œë¥¼ í‘¸ëŠ” í•¨ìˆ˜ 
 	void toSolve(const TentMap *const tentMap);
 
-	//¿°»öÃ¼¸¦ ºÎ¸ğ ¾øÀÌ »ı¼ºÇÏ´Â ÇÔ¼ö 
+	//ì—¼ìƒ‰ì²´ë¥¼ ë¶€ëª¨ ì—†ì´ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ 
 	void toChromFromNothing(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap);
 
-	//¿°»öÃ¼¸¦ ´ÜÄ£À¸·ÎºÎÅÍ ¹°·Á¹Ş¾Æ »ı¼ºÇÏ´Â ÇÔ¼ö 
+	//ì—¼ìƒ‰ì²´ë¥¼ ë‹¨ì¹œìœ¼ë¡œë¶€í„° ë¬¼ë ¤ë°›ì•„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ 
 	void toChromFromMother(Chrom *const chrom, const Chrom *const mother, const TentMap *const tentMap);
 
-	//¿°»öÃ¼¸¦ ¾çÄ£À¸·ÎºÎÅÍ ¹°·Á¹Ş¾Æ »ı¼ºÇÏ´Â ÇÔ¼ö. Áï, ±³Â÷¸¦ ¼öÇàÇÔ 
+	//ì—¼ìƒ‰ì²´ë¥¼ ì–‘ì¹œìœ¼ë¡œë¶€í„° ë¬¼ë ¤ë°›ì•„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜. ì¦‰, êµì°¨ë¥¼ ìˆ˜í–‰í•¨ 
 	void toChromFromParent(Chrom *const chrom, const Chrom *const mother, const Chrom *const father, const TentMap *const tentMap);
 
-	//¿°»öÃ¼¸¦ µ¹¿¬º¯ÀÌÇÏ´ÂÇÔ¼ö. ÁöÁ¡º° ÀÏÁ¤ÇÑ È®·ü·Î 
+	//ì—¼ìƒ‰ì²´ë¥¼ ëŒì—°ë³€ì´í•˜ëŠ”í•¨ìˆ˜. ì§€ì ë³„ ì¼ì •í•œ í™•ë¥ ë¡œ 
 	void toMutate(Chrom *const chrom, const float mutaRate, const Direc* const direc, const TentMap *const tentMap);
 	
-	//µ¹¿¬º¯ÀÌ 1Á¡ 
+	//ëŒì—°ë³€ì´ 1ì  
 	void toMutateSingle(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap);
 	
-	//µ¹¿¬º¯ÀÌ 2Á¡ 
+	//ëŒì—°ë³€ì´ 2ì  
 	void toMutateDouble(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap);
 	
-	//µ¹¿¬º¯ÀÌ 3Á¡ 
+	//ëŒì—°ë³€ì´ 3ì  
 	void toMutateTriple(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap);
 	
-	//ÀûÇÕµµ
+	//ì í•©ë„
 	const int toFit(Chrom *const chrom, const TentMap *const tentMap);
 	
-	//Ã¹ ¼¼´ë ¸¸µé±â
+	//ì²« ì„¸ëŒ€ ë§Œë“¤ê¸°
 	void toFirstGen(const Direc* const direc, const TentMap *const tentMap);
 
-	//¼¼´ë Æò°¡ÇÏ±â 
+	//ì„¸ëŒ€ í‰ê°€í•˜ê¸° 
 	void toFitGen(const TentMap *const tentMap);
 	
-	//·ê·¿ ¸¸µé±â. ·ê·¿ÈÙ ¼±ÅÃ  
+	//ë£°ë › ë§Œë“¤ê¸°. ë£°ë ›íœ  ì„ íƒ  
 	void toMakeRou();
 
-	//·ê·¿ ¸¸µé±â. ¼øÀ§±â¹İ ¼±ÅÃ 
+	//ë£°ë › ë§Œë“¤ê¸°. ìˆœìœ„ê¸°ë°˜ ì„ íƒ 
 	void toMakeRouByOrder();
 	
-	//·ê·¿ µ¹·Á¼­ ¼ıÀÚ Ã£±â 
+	//ë£°ë › ëŒë ¤ì„œ ìˆ«ì ì°¾ê¸° 
 	const int toRou();
 
-	//¼¼´ë ±³Ã¼. ÀÚ½Ä ¼¼´ë´Â ºÎ¸ğ¼¼´ë°¡ µÈ´Ù. 
+	//ì„¸ëŒ€ êµì²´. ìì‹ ì„¸ëŒ€ëŠ” ë¶€ëª¨ì„¸ëŒ€ê°€ ëœë‹¤. 
 	void toReplace();
 	
-	//¹ø½Ä. ºÎ¸ğ ¼¼´ë¸¦ ¹ÙÅÁÀ¸·Î »õ·Î¿î ÀÚ½Ä ¼¼´ë¸¦ ¸¸µç´Ù.
+	//ë²ˆì‹. ë¶€ëª¨ ì„¸ëŒ€ë¥¼ ë°”íƒ•ìœ¼ë¡œ ìƒˆë¡œìš´ ìì‹ ì„¸ëŒ€ë¥¼ ë§Œë“ ë‹¤.
 	void toReproduce(const Direc* const direc, const TentMap *const tentMap);
 
-	//¿°»öÃ¼¸¦ ¸Â±³´ë(Á¤·ÄÀ» À§ÇØ¼­) 
+	//ì—¼ìƒ‰ì²´ë¥¼ ë§êµëŒ€(ì •ë ¬ì„ ìœ„í•´ì„œ) 
 	void toSwapGen(int g, int h);
 
-	//ÄüÁ¤·Ä
+	//í€µì •ë ¬
 	void toQuickSort(int zeroth, int llast);
 	
-	//°á°ú Ãâ·Â
+	//ê²°ê³¼ ì¶œë ¥
 	void toPrintOut(const Direc* const direc, const TentMap *const tentMap);
 
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	GeneAlgo();
 
-	//¼Ò¸êÀÚ 
+	//ì†Œë©¸ì 
 	~GeneAlgo();
 };
 
-//½ÇÁúÀûÀ¸·Î ¹®Á¦¸¦ Çª´Â ÇÔ¼ö
+//ì‹¤ì§ˆì ìœ¼ë¡œ ë¬¸ì œë¥¼ í‘¸ëŠ” í•¨ìˆ˜
 void GeneAlgo::toSolve(const TentMap *const tentMap){
-	//³­¼ö ÃÊ±âÈ­ 
+	//ë‚œìˆ˜ ì´ˆê¸°í™” 
 	srand(time(NULL));
-	//À¯ÀüÀÚ°¡ »ı¼ºµÉ ¼ö ÀÖ´Â ÇÑ°è¸¦ ¼³Á¤ 
+	//ìœ ì „ìê°€ ìƒì„±ë  ìˆ˜ ìˆëŠ” í•œê³„ë¥¼ ì„¤ì • 
 	const Direc* const direc = Direc::toGenerateArray();
 	
 	toFirstGen(direc, tentMap);
 			
 	do {
-		//2Ãµ¼¼´ë¸¶´Ù Çö ¼¼´ë¸¦ ¸ğµÎ Áö¿ì°í »õ·Î¿î ¼¼´ë°¡ ½ÃÀÛµÈ´Ù
+		//2ì²œì„¸ëŒ€ë§ˆë‹¤ í˜„ ì„¸ëŒ€ë¥¼ ëª¨ë‘ ì§€ìš°ê³  ìƒˆë¡œìš´ ì„¸ëŒ€ê°€ ì‹œì‘ëœë‹¤
 		if( Generation == 0 || (Generation > 2000 && Generation%2000 == 1))  
 			toFirstGen(direc, tentMap);
 
-		//Æò°¡
+		//í‰ê°€
 		toFitGen(tentMap);
 
 		if (Fbest==0)
 			break;
 			
-		//Á¤·Ä
+		//ì •ë ¬
 		toQuickSort(0, NumberGen);
 		
-		if(Generation%2000 == 0) //2Ãµ¼¼´ë¸¶´Ù ÇöÀç »óÈ²À» ÇÁ¸°Æ®
+		if(Generation%2000 == 0) //2ì²œì„¸ëŒ€ë§ˆë‹¤ í˜„ì¬ ìƒí™©ì„ í”„ë¦°íŠ¸
 			toPrintOut(direc, tentMap);
 		
-		//·ê·¿ ¸¸µé±â
+		//ë£°ë › ë§Œë“¤ê¸°
 		toMakeRou();
 		//if(Generation == 0)
-		//	toMakeRouByOrder(); //¼øÀ§±â¹İ¼±ÅÃ
+		//	toMakeRouByOrder(); //ìˆœìœ„ê¸°ë°˜ì„ íƒ
 		
-		//¼¼´ë ±³Ã¼. ÀÚ½Ä ¼¼´ë´Â ºÎ¸ğ¼¼´ë°¡ µÈ´Ù.
+		//ì„¸ëŒ€ êµì²´. ìì‹ ì„¸ëŒ€ëŠ” ë¶€ëª¨ì„¸ëŒ€ê°€ ëœë‹¤.
 		toReplace();
 		Generation++;
 		
-		//¹ø½Ä. ºÎ¸ğ ¼¼´ë¸¦ ¹ÙÅÁÀ¸·Î »õ·Î¿î ÀÚ½Ä ¼¼´ë¸¦ ¸¸µç´Ù.
+		//ë²ˆì‹. ë¶€ëª¨ ì„¸ëŒ€ë¥¼ ë°”íƒ•ìœ¼ë¡œ ìƒˆë¡œìš´ ìì‹ ì„¸ëŒ€ë¥¼ ë§Œë“ ë‹¤.
 		toReproduce(direc, tentMap);
 	} while (1);
 	
@@ -165,70 +165,70 @@ void GeneAlgo::toSolve(const TentMap *const tentMap){
 	delete[] direc;
 }
 
-//¿°»öÃ¼¸¦ ºÎ¸ğ ¾øÀÌ »ı¼ºÇÏ´Â ÇÔ¼ö 
+//ì—¼ìƒ‰ì²´ë¥¼ ë¶€ëª¨ ì—†ì´ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ 
 void GeneAlgo::toChromFromNothing(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap){
 	const char* const treeDirection = tentMap -> TreeDirection;
 	const int numberTrees = (int)(tentMap -> NumberTrees);
 	
-	//À¯ÀüÀÚ¿¡ ´ãÀ» °ø°£ È®º¸
+	//ìœ ì „ìì— ë‹´ì„ ê³µê°„ í™•ë³´
 	if(chrom -> locus == NULL){
 			chrom -> locus = new char[numberTrees];
 	}
 	
-	//°¢ ³ª¹«°¡ ³õÀ» ¼ö ÀÖ´Â ¹æÇâÀ» °í·ÁÇÏ¿© À¯ÀüÀÚ ÃÊ±âÈ­ 
+	//ê° ë‚˜ë¬´ê°€ ë†“ì„ ìˆ˜ ìˆëŠ” ë°©í–¥ì„ ê³ ë ¤í•˜ì—¬ ìœ ì „ì ì´ˆê¸°í™” 
 	for(int k=0; k < numberTrees; k++){
 		chrom->locus[k] = direc[treeDirection[k]].toGet();
 	}
 }
 
-//¿°»öÃ¼¸¦ ´ÜÄ£À¸·ÎºÎÅÍ ¹°·Á¹Ş¾Æ »ı¼ºÇÏ´Â ÇÔ¼ö 
+//ì—¼ìƒ‰ì²´ë¥¼ ë‹¨ì¹œìœ¼ë¡œë¶€í„° ë¬¼ë ¤ë°›ì•„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ 
 void GeneAlgo::toChromFromMother(Chrom *const chrom, const Chrom *const mother, const TentMap *const tentMap){
 	const int numberTrees = (int) (tentMap -> NumberTrees);
 	
-	//¿°»öÃ¼¿¡ ´ãÀ» °ø°£ È®º¸ 
+	//ì—¼ìƒ‰ì²´ì— ë‹´ì„ ê³µê°„ í™•ë³´ 
 	if(chrom -> locus == NULL){
 			chrom -> locus = new char[numberTrees];
 	}
 
-	//¸ğÄ£À¸·ÎºÎÅÍ º¹»ç 
+	//ëª¨ì¹œìœ¼ë¡œë¶€í„° ë³µì‚¬ 
 	for(int k=0; k < numberTrees; k++){
 		chrom->locus[k] = mother->locus[k] ;
 	}
 }
 
-//¿°»öÃ¼¸¦ ¾çÄ£À¸·ÎºÎÅÍ ¹°·Á¹Ş¾Æ »ı¼ºÇÏ´Â ÇÔ¼ö 
+//ì—¼ìƒ‰ì²´ë¥¼ ì–‘ì¹œìœ¼ë¡œë¶€í„° ë¬¼ë ¤ë°›ì•„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ 
 void GeneAlgo::toChromFromParent(Chrom *const chrom, const Chrom *const mother, const Chrom *const father, const TentMap *const tentMap){
 	const int numberTrees = (int) (tentMap -> NumberTrees);
 	
-	//¿°»öÃ¼¿¡ ´ãÀ» °ø°£ È®º¸ 
+	//ì—¼ìƒ‰ì²´ì— ë‹´ì„ ê³µê°„ í™•ë³´ 
 	if(chrom -> locus == NULL){
 			chrom -> locus = new char[numberTrees];
 	}
 	
-	//±³Â÷ÁöÁ¡ ¼±ÅÃ
-	int cross = rand() % (numberTrees - 1) + 1; //1ºÎÅÍ (numberTrees - 1)±îÁöÀÇ ±Õµî ºĞÆ÷ 
+	//êµì°¨ì§€ì  ì„ íƒ
+	int cross = rand() % (numberTrees - 1) + 1; //1ë¶€í„° (numberTrees - 1)ê¹Œì§€ì˜ ê· ë“± ë¶„í¬ 
 
-	//¸ğÄ£À¸·ÎºÎÅÍ º¹»ç
+	//ëª¨ì¹œìœ¼ë¡œë¶€í„° ë³µì‚¬
 	for(int k=0; k < cross; k++){
 		chrom->locus[k] = mother->locus[k] ;
 	}
 
-	//ºÎÄ£À¸·ÎºÎÅÍ º¹»ç 
+	//ë¶€ì¹œìœ¼ë¡œë¶€í„° ë³µì‚¬ 
 	for(int k=cross; k < numberTrees; k++){
 		chrom->locus[k] = father->locus[k] ;
 	}
 }
 
-//¿°»öÃ¼¸¦ µ¹¿¬º¯ÀÌÇÏ´ÂÇÔ¼ö. ÁöÁ¡º° ÀÏÁ¤ÇÑ È®·ü·Î
+//ì—¼ìƒ‰ì²´ë¥¼ ëŒì—°ë³€ì´í•˜ëŠ”í•¨ìˆ˜. ì§€ì ë³„ ì¼ì •í•œ í™•ë¥ ë¡œ
 void GeneAlgo::toMutate(Chrom *const chrom, const float mutaRate, const Direc* const direc, const TentMap *const tentMap){
-	if(mutaRate <= 0) //µ¹¿¬º¯ÀÌÀ²ÀÌ 0º¸´Ù ÀÛ°Å³ª °°À¸¸é ÇÒ ÀÏÀÌ ¾ø´Ù.
+	if(mutaRate <= 0) //ëŒì—°ë³€ì´ìœ¨ì´ 0ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ìœ¼ë©´ í•  ì¼ì´ ì—†ë‹¤.
 		return;
 
 	const char* const treeDirection = tentMap -> TreeDirection;
 	const int numberTrees = (int) (tentMap -> NumberTrees);
 		
 	for(int k=0; k < numberTrees; k++){
-		if( 1.0f / (RAND_MAX+1) * rand() < mutaRate){ //È®·ü ³­¼ö »ı¼º: 0ºÎÅÍ 1±îÁöÀÇ ±Õµî ºĞÆ÷ 
+		if( 1.0f / (RAND_MAX+1) * rand() < mutaRate){ //í™•ë¥  ë‚œìˆ˜ ìƒì„±: 0ë¶€í„° 1ê¹Œì§€ì˜ ê· ë“± ë¶„í¬ 
 			switch(chrom->locus[k]){
 				case Direc::GeneNorth:
 					chrom->locus[k] = direc[treeDirection[k] & Direc::NotDirectNorth].toGet();
@@ -247,7 +247,7 @@ void GeneAlgo::toMutate(Chrom *const chrom, const float mutaRate, const Direc* c
 	}	
 }
 
-//µ¹¿¬º¯ÀÌ 1Á¡
+//ëŒì—°ë³€ì´ 1ì 
 void GeneAlgo::toMutateSingle(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap){
 	const char* const treeDirection = tentMap -> TreeDirection;
 	const int numberTrees = (int) (tentMap -> NumberTrees);
@@ -270,7 +270,7 @@ void GeneAlgo::toMutateSingle(Chrom *const chrom, const Direc* const direc, cons
 	}
 }
 
-//µ¹¿¬º¯ÀÌ 2Á¡
+//ëŒì—°ë³€ì´ 2ì 
 void GeneAlgo::toMutateDouble(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap){
 	const char* const treeDirection = tentMap -> TreeDirection;
 	const int numberTrees = (int) (tentMap -> NumberTrees);
@@ -315,7 +315,7 @@ void GeneAlgo::toMutateDouble(Chrom *const chrom, const Direc* const direc, cons
 	}
 }
 
-//µ¹¿¬º¯ÀÌ 3Á¡
+//ëŒì—°ë³€ì´ 3ì 
 void GeneAlgo::toMutateTriple(Chrom *const chrom, const Direc* const direc, const TentMap *const tentMap){
 	const char* const treeDirection = tentMap -> TreeDirection;
 	const int numberTrees = (int) (tentMap -> NumberTrees);
@@ -381,11 +381,11 @@ void GeneAlgo::toMutateTriple(Chrom *const chrom, const Direc* const direc, cons
 	}
 }
 
-//ÀûÇÕµµ
+//ì í•©ë„
 const int GeneAlgo::toFit(Chrom *const chrom, const TentMap *const tentMap){
-	int fitness = 0; //ÀûÇÕµµ´Â ÃÖÃÊ´Â 0À¸·Î ÇÏ°í ±ğ¾Æ ³ª°£´Ù
+	int fitness = 0; //ì í•©ë„ëŠ” ìµœì´ˆëŠ” 0ìœ¼ë¡œ í•˜ê³  ê¹ì•„ ë‚˜ê°„ë‹¤
 	
-	//Ãæµ¹ Ã³¸® 
+	//ì¶©ëŒ ì²˜ë¦¬ 
 	for(int c=0; c < tentMap->NumberTreeCheck; c++) {
 		int k = (int)(tentMap->TreeChecker[c].K);
 		int l = (int)(tentMap->TreeChecker[c].L);
@@ -395,20 +395,20 @@ const int GeneAlgo::toFit(Chrom *const chrom, const TentMap *const tentMap){
 		
 		switch(collisMap[m][n]){
 			case 1:
-				fitness -= 2; //´ë°¢¼± 
+				fitness -= 2; //ëŒ€ê°ì„  
 				break;
 			case 2:
-				fitness -= 4; //Á÷¼± 
+				fitness -= 4; //ì§ì„  
 				break;
 			case 3:
-				fitness -= 8; //µ¿ÀÏÀ§Ä¡ 
+				fitness -= 8; //ë™ì¼ìœ„ì¹˜ 
 				break;
 			case 4:
-				fitness -= 16; //ÅÙÆ®-³ª¹« 
+				fitness -= 16; //í…íŠ¸-ë‚˜ë¬´ 
 		}
 	}
 	
-	//Çà¿­´ç ³ª¹«°³¼ö 
+	//í–‰ì—´ë‹¹ ë‚˜ë¬´ê°œìˆ˜ 
 	char *rowTent = new char[tentMap->Size];
 	char *colTent = new char[tentMap->Size];
 
@@ -433,7 +433,7 @@ const int GeneAlgo::toFit(Chrom *const chrom, const TentMap *const tentMap){
 	return fitness;
 }
 
-//Ã¹ ¼¼´ë ¸¸µé±â
+//ì²« ì„¸ëŒ€ ë§Œë“¤ê¸°
 void GeneAlgo::toFirstGen(const Direc* const direc, const TentMap *const tentMap){
 	if(Gen != NULL)
 		delete[] Gen;
@@ -446,13 +446,13 @@ void GeneAlgo::toFirstGen(const Direc* const direc, const TentMap *const tentMap
 	}
 }
 
-//¼¼´ë Æò°¡ÇÏ±â 
+//ì„¸ëŒ€ í‰ê°€í•˜ê¸° 
 void GeneAlgo::toFitGen(const TentMap *const tentMap){
 	Fmax = -0x4000000;
 	Fmin = +0x4000000;
 	
 	if(Fitness != NULL)
-		delete[] Fitness; //ÀÌÀüÀÇ ÀûÇÕµµ ¹è¿­Àº Áö¿ö¹ö¸°´Ù 
+		delete[] Fitness; //ì´ì „ì˜ ì í•©ë„ ë°°ì—´ì€ ì§€ì›Œë²„ë¦°ë‹¤ 
 	Fitness = new int[NumberGen];
 	
 	for(int g=0; g<NumberGen;g++){
@@ -463,19 +463,19 @@ void GeneAlgo::toFitGen(const TentMap *const tentMap){
 				delete Best;
 			Best = new Chrom;
 			toChromFromMother(Best, Gen+g, tentMap);
-			Fbest = Fitness[g]; //ÃÖ¼±ÀÇ ÀûÇÕµµ °»½Å 
+			Fbest = Fitness[g]; //ìµœì„ ì˜ ì í•©ë„ ê°±ì‹  
 		}
 		
-		//Fbest´Â ÀüÃ¼ ÇØÀÇ ÃÖ¼±ÀÌ¸ç 
-		Fmax = (Fmax>Fitness[g]) ? Fmax : Fitness[g]; //Fmax´Â Çö ¼¼´ëÀÇ ÀüÃ¼ ÇØÀÇ ÃÖ¼±ÀÌ´Ù 
+		//FbestëŠ” ì „ì²´ í•´ì˜ ìµœì„ ì´ë©° 
+		Fmax = (Fmax>Fitness[g]) ? Fmax : Fitness[g]; //FmaxëŠ” í˜„ ì„¸ëŒ€ì˜ ì „ì²´ í•´ì˜ ìµœì„ ì´ë‹¤ 
 		Fmin = (Fmin<Fitness[g]) ? Fmin : Fitness[g];	
 	}
 }
 
-//·ê·¿ ¸¸µé±â. ·ê·¿ÈÙ ¼±ÅÃ  
+//ë£°ë › ë§Œë“¤ê¸°. ë£°ë ›íœ  ì„ íƒ  
 void GeneAlgo::toMakeRou(){
 	if(Rou != NULL)
-		delete[] Rou; //ÀÌÀüÀÇ ·ê·¿ ¹è¿­Àº Áö¿ö¹ö¸°´Ù
+		delete[] Rou; //ì´ì „ì˜ ë£°ë › ë°°ì—´ì€ ì§€ì›Œë²„ë¦°ë‹¤
 	NumberRou = NumberGen;
 	Rou = new int[NumberRou];
 	
@@ -488,11 +488,11 @@ void GeneAlgo::toMakeRou(){
 	}
 }
 
-//·ê·¿ ¸¸µé±â. ¼øÀ§±â¹İ ¼±ÅÃ  
+//ë£°ë › ë§Œë“¤ê¸°. ìˆœìœ„ê¸°ë°˜ ì„ íƒ  
 void GeneAlgo::toMakeRouByOrder(){
 	if(Rou != NULL)
-		delete[] Rou; //ÀÌÀüÀÇ ·ê·¿ ¹è¿­Àº Áö¿ö¹ö¸°´Ù 
-	NumberRou = NumberGen/4; //ÀüÃ¼ ÀÎ±¸ÀÇ 4ºĞÀÇ 1
+		delete[] Rou; //ì´ì „ì˜ ë£°ë › ë°°ì—´ì€ ì§€ì›Œë²„ë¦°ë‹¤ 
+	NumberRou = NumberGen/4; //ì „ì²´ ì¸êµ¬ì˜ 4ë¶„ì˜ 1
 	Rou = new int[NumberRou];
 
 	int pmax = 16;
@@ -503,17 +503,17 @@ void GeneAlgo::toMakeRouByOrder(){
 	}
 }
 
-//·ê·¿ µ¹·Á¼­ ¼ıÀÚ Ã£±â
+//ë£°ë › ëŒë ¤ì„œ ìˆ«ì ì°¾ê¸°
 const int GeneAlgo::toRou(){
 	int rouPoint = rand()%Rou[NumberRou-1];
-	int rou=0; //¸®ÅÏÇÒ °ª 
+	int rou=0; //ë¦¬í„´í•  ê°’ 
 	
-	for(; rou<NumberRou && rouPoint >= Rou[rou]; rou++); // {} ¾øÀ½ ÁÖÀÇ 
+	for(; rou<NumberRou && rouPoint >= Rou[rou]; rou++); // {} ì—†ìŒ ì£¼ì˜ 
 
 	return rou;
 }
 
-//¼¼´ë ±³Ã¼. ÀÚ½Ä ¼¼´ë´Â ºÎ¸ğ¼¼´ë°¡ µÈ´Ù.
+//ì„¸ëŒ€ êµì²´. ìì‹ ì„¸ëŒ€ëŠ” ë¶€ëª¨ì„¸ëŒ€ê°€ ëœë‹¤.
 void GeneAlgo::toReplace(){
 	if(Par != NULL)
 		delete[] Par;
@@ -524,7 +524,7 @@ void GeneAlgo::toReplace(){
 	Gen = NULL;
 }
 
-//¹ø½Ä. ºÎ¸ğ ¼¼´ë¸¦ ¹ÙÅÁÀ¸·Î »õ·Î¿î ÀÚ½Ä ¼¼´ë¸¦ ¸¸µç´Ù.
+//ë²ˆì‹. ë¶€ëª¨ ì„¸ëŒ€ë¥¼ ë°”íƒ•ìœ¼ë¡œ ìƒˆë¡œìš´ ìì‹ ì„¸ëŒ€ë¥¼ ë§Œë“ ë‹¤.
 void GeneAlgo::toReproduce(const Direc* const direc, const TentMap *const tentMap){
 	if(Gen != NULL)
 		delete[] Gen;
@@ -532,8 +532,8 @@ void GeneAlgo::toReproduce(const Direc* const direc, const TentMap *const tentMa
 	NumberGen = 40;
 	Gen = new Chrom[NumberGen];
 	
-	int sectA = 4; //¼­¿­´ë·Î °¡Á®¿È 
-	int sectB = sectA + 4; //¹«¼º»ı½Ä 
+	int sectA = 4; //ì„œì—´ëŒ€ë¡œ ê°€ì ¸ì˜´ 
+	int sectB = sectA + 4; //ë¬´ì„±ìƒì‹ 
 	
 	for(int g=0; g<sectA; g++){
 		/*
@@ -542,7 +542,7 @@ void GeneAlgo::toReproduce(const Direc* const direc, const TentMap *const tentMa
 		if(Fitness[m] < -tentMap->NumberTrees*5)
 			mutaRate = .15f;
 		else if(Fitness[m] < -tentMap->NumberTrees)
-			mutaRate = .03f * (-Fitness[m] / tentMap->NumberTrees); //ÀûÇÕµµ°¡ ¶³¾îÁö¸é µ¹¿¬º¯ÀÌÀ²ÀÌ ¿Ã¶ó°£´Ù 
+			mutaRate = .03f * (-Fitness[m] / tentMap->NumberTrees); //ì í•©ë„ê°€ ë–¨ì–´ì§€ë©´ ëŒì—°ë³€ì´ìœ¨ì´ ì˜¬ë¼ê°„ë‹¤ 
 		else
 			mutaRate = .03f;
 		toChromFromMother(Gen+g, Par+m, mutaRate, direc, tentMap);
@@ -579,7 +579,7 @@ void GeneAlgo::toReproduce(const Direc* const direc, const TentMap *const tentMa
 	}
 }
 
-//±³´ë 
+//êµëŒ€ 
 void GeneAlgo::toSwapGen(int g, int h){
 	if(Gen != NULL){
 		char *const buffer = Gen[g].locus;
@@ -593,26 +593,24 @@ void GeneAlgo::toSwapGen(int g, int h){
 	}
 }
 
-//ÄüÁ¤·Ä
+//í€µì •ë ¬
 void GeneAlgo::toQuickSort(const int zeroth, const int llast){
-	if( llast-zeroth <= 1)//1°³ ÀÌÇÏÀÏ ¶§ ÇÒ °ÍÀÌ ¾ø´Ù 
+	if( llast-zeroth <= 1)//1ê°œ ì´í•˜ì¼ ë•Œ í•  ê²ƒì´ ì—†ë‹¤ 
 		return;
-	if( llast-zeroth == 2){//2°³ÀÏ ¶§ 
+	if( llast-zeroth == 2){//2ê°œì¼ ë•Œ 
 		if(Fitness[zeroth] < Fitness[zeroth+1]) 
 			toSwapGen(zeroth, zeroth+1);
 		return;
 	}
 	
 	int pivot = zeroth;
-	int midpoint = (zeroth+llast+1)/2;//Áß°£Á¡
+	int midpoint = (zeroth+llast+1)/2;//ì¤‘ê°„ì 
 	int g = zeroth+1;
 	int h = llast-1;
 	
 	while(g<h){
 		for(; (Fitness[h]<Fitness[pivot] || (Fitness[h]==Fitness[pivot] && h>midpoint) ) && g<h; h--);
 		for(; (Fitness[g]>Fitness[pivot] || (Fitness[g]==Fitness[pivot] && h<=midpoint) ) && g<h; g++);
-		for(; Fitness[h]<Fitness[pivot] && g<h; h--);
-		for(; Fitness[g]>Fitness[pivot] && g<h; g++);
 		if(g<h && Fitness[g]<Fitness[h])
 			toSwapGen(g, h);
 		else if(g<h && Fitness[g]==Fitness[h])
@@ -629,7 +627,7 @@ void GeneAlgo::toQuickSort(const int zeroth, const int llast){
 	toQuickSort(pivot+1, llast);
 }
 
-//°á°ú Ãâ·Â
+//ê²°ê³¼ ì¶œë ¥
 void GeneAlgo::toPrintOut(const Direc* const direc, const TentMap *const tentMap){
 	system("cls");
 	printf("Tents And Trees Solver Ver. 0.50 by Naoever.\n");
@@ -656,7 +654,7 @@ void GeneAlgo::toPrintOut(const Direc* const direc, const TentMap *const tentMap
 		char i;
 		char j;
 		tentMap->toGetTentXY(k, Best->locus[k], &i, &j);
-		map[i][j] = 4; //4ÀÎ ÀÌÀ¯´Â ±×³É °¡Àå ÅÙÆ® ¸ğ¾ç°ú ´à¾Æ¼­
+		map[i][j] = 4; //4ì¸ ì´ìœ ëŠ” ê·¸ëƒ¥ ê°€ì¥ í…íŠ¸ ëª¨ì–‘ê³¼ ë‹®ì•„ì„œ
 	}
 
 	for (int i=0; i < tentMap->Size; i++){
@@ -676,13 +674,13 @@ void GeneAlgo::toPrintOut(const Direc* const direc, const TentMap *const tentMap
 	delete[] map;
 }
 
-//»ı¼ºÀÚ
+//ìƒì„±ì
 GeneAlgo::GeneAlgo(): 
 	Fbest(-0x40000000), NumberGen(0), NumberPar(0), Fmax(-0x40000000), Fmin(+0x40000000), NumberRou(0), Generation(0),
 	Best(NULL), Gen(NULL), Par(NULL), Fitness(NULL), Rou(NULL){
 }
 
-//¼Ò¸êÀÚ
+//ì†Œë©¸ì
 GeneAlgo::~GeneAlgo(){
 	if (Best != NULL)
 		delete Best;
