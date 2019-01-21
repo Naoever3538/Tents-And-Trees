@@ -5,30 +5,30 @@
 #include <stdlib.h>
 #include <time.h>
 
-//ÅÙÆ®ÀÇ ¹æÇâÀ» ´ã°í ±× À¯ÀüÀÚ(ÇÑ À§Ä¡) »ı¼ºÀ» ´ã´çÇÏ´Â Å¬·¡½º
-//ÀÌ Å¬·¡½ºÀÇ ÇÙ½ÉÀº ¾Æ·¡¿¡ Á¤ÀÇµÈ 16°³ ÇÔ¼ö¸¦ ´ã´Â Æ÷ÀÎÅÍ¸¦ ¸¸µé¾î¼­ ¼öÇàÇÒ ¼ö ÀÖ°Ô ÇÏ´Â °ÍÀÌ´Ù.
-//¾Æ·¡ 16°³ ÇÔ¼ö¸¦ °¢ÀÚ ÇÏ³ª¾¿ Áö½ÃÇÏ´Â 16°³ÀÇ Direc ¿ÀºêÁ§Æ®¸¦ ¸¸µç´Ù.
-//±× ¿ÀºêÁ§Æ® 16°³¸¦ ¼øÂ÷ÀûÀ¸·Î ´ã´Â ±æÀÌ 16ÀÇ ¹è¿­À» ¸¸µå´Â °ÍÀÌ ÇÙ½ÉÀÌ´Ù. 
+//í…íŠ¸ì˜ ë°©í–¥ì„ ë‹´ê³  ê·¸ ìœ ì „ì(í•œ ìœ„ì¹˜) ìƒì„±ì„ ë‹´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤.
+//ì´ í´ë˜ìŠ¤ì˜ í•µì‹¬ì€ ì•„ë˜ì— ì •ì˜ëœ 16ê°œ í•¨ìˆ˜ë¥¼ ë‹´ëŠ” í¬ì¸í„°ì˜ ë°°ì—´ë¥¼ ë§Œë“¤ì–´ì„œ ìˆ˜í–‰í•  ìˆ˜ ìˆê²Œ í•˜ëŠ” ê²ƒì´ë‹¤.
+//ì´ì œ ë”ì´ìƒ ë°°ì—´ì„ ë§Œë“¤ì§€ ì•Šê³  Direc::Action ë°°ì—´ì„ í†µí•´ ì ‘ê·¼í•  ìˆ˜ ìˆë‹¤.
+//ë”ì´ìƒ í´ë˜ìŠ¤ì˜ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•  í•„ìš”ê°€ ì—†ë‹¤.
 class Direc {
 	private:
-	//À¯ÀÏÇÑ static ¾Æ´Ñ º¯¼ö.
+	//ìœ ì¼í•œ static ì•„ë‹Œ ë³€ìˆ˜.
 	//char (*actionLocus)();
 	
 	public:
-	//»ı¼ºÀÚ
+	//ìƒì„±ì
 	Direc(){
 	}
 	
-	//¼Ò¸êÀÚ 
+	//ì†Œë©¸ì 
 	~Direc(){
 	}
 	
-	//¾Æ·¡´Â °¢Á¾ÀÇ static ÇÔ¼ö¿Í º¯¼öµéÀÌ´Ù. 
-	//¹æÇâµé
-	static const char Direct = 0; // ¾Æ¹« ¹æÇâµµ ºÒ°¡´ÉÇÑ°æ¿ì 
-	static const char DirectNorth = 1; // ºÏÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static const char DirectEast = 2; // µ¿ÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static const char DirectNorthEast = 3; // ºÏÂÊ°ú µ¿ÂÊÀÌ °¡´ÉÇÑ °æ¿ì. ÀÌÇÏ °°´Ù. 
+	//ì•„ë˜ëŠ” ê°ì¢…ì˜ static í•¨ìˆ˜ì™€ ë³€ìˆ˜ë“¤ì´ë‹¤. 
+	//ë°©í–¥ë“¤
+	static const char Direct = 0; // ì•„ë¬´ ë°©í–¥ë„ ë¶ˆê°€ëŠ¥í•œê²½ìš° 
+	static const char DirectNorth = 1; // ë¶ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static const char DirectEast = 2; // ë™ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static const char DirectNorthEast = 3; // ë¶ìª½ê³¼ ë™ìª½ì´ ê°€ëŠ¥í•œ ê²½ìš°. ì´í•˜ ê°™ë‹¤. 
 	static const char DirectSouth = 4;
 	static const char DirectNorthSouth = 5;
 	static const char DirectEastSouth = 6;
@@ -40,13 +40,13 @@ class Direc {
 	static const char DirectSouthWest = 12;
 	static const char DirectNorthSouthWest = 13;
 	static const char DirectEastSouthWest = 14;
-	static const char DirectNorthEastSouthWest = 15; //¸ğµç¹æÇâ
+	static const char DirectNorthEastSouthWest = 15; //ëª¨ë“ ë°©í–¥
 
-	//¹æÇâµéÀÇ Complement, ´Ù ¾µ µ¥°¡ ÀÖ´Ù 
-	static const char NotDirect = 15; // ¾Æ¹« ¹æÇâµµ ºÒ°¡´ÉÇÑ°æ¿ì 
-	static const char NotDirectNorth = 14; // ºÏÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static const char NotDirectEast = 13; // µ¿ÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static const char NotDirectNorthEast = 12; // ºÏÂÊ°ú µ¿ÂÊÀÌ °¡´ÉÇÑ °æ¿ì. ÀÌÇÏ °°´Ù. 
+	//ë°©í–¥ë“¤ì˜ Complement, ë‹¤ ì“¸ ë°ê°€ ìˆë‹¤ 
+	static const char NotDirect = 15; // ì•„ë¬´ ë°©í–¥ë„ ë¶ˆê°€ëŠ¥í•œê²½ìš° 
+	static const char NotDirectNorth = 14; // ë¶ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static const char NotDirectEast = 13; // ë™ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static const char NotDirectNorthEast = 12; // ë¶ìª½ê³¼ ë™ìª½ì´ ê°€ëŠ¥í•œ ê²½ìš°. ì´í•˜ ê°™ë‹¤. 
 	static const char NotDirectSouth = 11;
 	static const char NotDirectNorthSouth = 10;
 	static const char NotDirectEastSouth = 9;
@@ -58,15 +58,15 @@ class Direc {
 	static const char NotDirectSouthWest = 3;
 	static const char NotDirectNorthSouthWest = 2;
 	static const char NotDirectEastSouthWest = 1;
-	static const char NotDirectNorthEastSouthWest = 0; //¸ğµç¹æÇâ
+	static const char NotDirectNorthEastSouthWest = 0; //ëª¨ë“ ë°©í–¥
 	
-	//°¢ ³ª¹«¿¡ ÇØ´çÇÏ´Â À¯ÀüÀÚ°¡ Áö½ÃÇÏ´Â ÅÙÆ® ¹æÇâ 
+	//ê° ë‚˜ë¬´ì— í•´ë‹¹í•˜ëŠ” ìœ ì „ìê°€ ì§€ì‹œí•˜ëŠ” í…íŠ¸ ë°©í–¥ 
 	static const char GeneNorth = 0;
 	static const char GeneEast = 1;
 	static const char GeneSouth = 2;
 	static const char GeneWest = 3;
 		
-	//¹æÇâµéÀÇ ¼öÄ¡¸¦ ¹Ş¾Æ ½ºÆ®¸µÀ¸·Î ³»´Â ÇÔ¼ö
+	//ë°©í–¥ë“¤ì˜ ìˆ˜ì¹˜ë¥¼ ë°›ì•„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë‚´ëŠ” í•¨ìˆ˜
 	#ifndef __NoNeedMonitor
 	static const char * toString(const char direc){
 		switch (direc){
@@ -106,11 +106,11 @@ class Direc {
 	}
 	#endif
 
-	// °¢ ³ª¹«¿¡ ³õÀ» ¼ö ÀÖ´Â ÅÙÆ®ÀÇ ¹æÇâÀ» µû¶ó ·£´ıÇÏ°Ô À¯ÀüÀÚ(ÇÑ À§Ä¡)¸¦ »ı¼ºÇÏ´Â ÇÔ¼öµé
-	static char toLocus(); // ¾Æ¹« ¹æÇâµµ °¥ ¼ö ¾øÀ» ¶§: (ÇÏ´Â¼ö ¾øÀÌ ºÏÂÊÀ» ÇâÇÑ´Ù)
-	static char toLocusNorth(); // ºÏÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static char toLocusEast(); // µ¿ÂÊ¸¸ °¡´ÉÇÑ °æ¿ì 
-	static char toLocusNorthEast(); // ºÏÂÊ°ú µ¿ÂÊÀÌ °¡´ÉÇÑ °æ¿ì. ÀÌÇÏ °°´Ù. 
+	// ê° ë‚˜ë¬´ì— ë†“ì„ ìˆ˜ ìˆëŠ” í…íŠ¸ì˜ ë°©í–¥ì„ ë”°ë¼ ëœë¤í•˜ê²Œ ìœ ì „ì(í•œ ìœ„ì¹˜)ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ë“¤
+	static char toLocus(); // ì•„ë¬´ ë°©í–¥ë„ ê°ˆ ìˆ˜ ì—†ì„ ë•Œ: (í•˜ëŠ”ìˆ˜ ì—†ì´ ë¶ìª½ì„ í–¥í•œë‹¤)
+	static char toLocusNorth(); // ë¶ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static char toLocusEast(); // ë™ìª½ë§Œ ê°€ëŠ¥í•œ ê²½ìš° 
+	static char toLocusNorthEast(); // ë¶ìª½ê³¼ ë™ìª½ì´ ê°€ëŠ¥í•œ ê²½ìš°. ì´í•˜ ê°™ë‹¤. 
 	static char toLocusSouth();
 	static char toLocusNorthSouth();
 	static char toLocusEastSouth();
@@ -122,7 +122,7 @@ class Direc {
 	static char toLocusSouthWest();
 	static char toLocusNorthSouthWest();
 	static char toLocusEastSouthWest();
-	static char toLocusNorthEastSouthWest(); //¸ğµç¹æÇâ
+	static char toLocusNorthEastSouthWest(); //ëª¨ë“ ë°©í–¥
 	
 	typedef char (*TypeAction)();
 	static const TypeAction Action[16];
