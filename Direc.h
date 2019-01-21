@@ -9,46 +9,18 @@
 //이 클래스의 핵심은 아래에 정의된 16개 함수를 담는 포인터를 만들어서 수행할 수 있게 하는 것이다.
 //아래 16개 함수를 각자 하나씩 지시하는 16개의 Direc 오브젝트를 만든다.
 //그 오브젝트 16개를 순차적으로 담는 길이 16의 배열을 만드는 것이 핵심이다. 
-
 class Direc {
 	private:
 	//유일한 static 아닌 변수.
-	char (*actionLocus)();
+	//char (*actionLocus)();
 	
 	public:
 	//생성자
-	Direc() : actionLocus(NULL){
+	Direc(){
 	}
 	
 	//소멸자 
 	~Direc(){
-	}
-	
-	//지시하는 함수를 수행하여 랜덤한 수를 뱉어낸다
-	char toGet() const{
-		return (*actionLocus)();
-	}
-	
-	//배열을 만들어 던지는 함수
-	static const Direc* toGenerateArray(){
-		Direc* array = new Direc[16];
-		array[0].actionLocus = toLocus;
-		array[1].actionLocus = toLocusNorth;
-		array[2].actionLocus = toLocusEast;
-		array[3].actionLocus = toLocusNorthEast;
-		array[4].actionLocus = toLocusSouth;
-		array[5].actionLocus = toLocusNorthSouth;
-		array[6].actionLocus = toLocusEastSouth;
-		array[7].actionLocus = toLocusNorthEastSouth;
-		array[8].actionLocus = toLocusWest;
-		array[9].actionLocus = toLocusNorthWest;
-		array[10].actionLocus = toLocusEastWest;
-		array[11].actionLocus = toLocusNorthEastWest;
-		array[12].actionLocus = toLocusSouthWest;
-		array[13].actionLocus = toLocusNorthSouthWest;
-		array[14].actionLocus = toLocusEastSouthWest;
-		array[15].actionLocus = toLocusNorthEastSouthWest;		
-		return array;
 	}
 	
 	//아래는 각종의 static 함수와 변수들이다. 
@@ -93,9 +65,9 @@ class Direc {
 	static const char GeneEast = 1;
 	static const char GeneSouth = 2;
 	static const char GeneWest = 3;
-	
+		
 	//방향들의 수치를 받아 스트링으로 내는 함수
-	#ifndef __NoNeedMnitor
+	#ifndef __NoNeedMonitor
 	static const char * toString(const char direc){
 		switch (direc){
 			case 0:
@@ -151,84 +123,8 @@ class Direc {
 	static char toLocusNorthSouthWest();
 	static char toLocusEastSouthWest();
 	static char toLocusNorthEastSouthWest(); //모든방향
+	
+	typedef char (*TypeAction)();
+	static const TypeAction Action[16];
 };
-
-// 아무 방향도 갈 수 없을 때: (하는수 없이 북쪽을 향한다)
-char Direc::toLocus() {
-	return GeneNorth;
-}
-
-// 북쪽만 가능한 경우
-char Direc::toLocusNorth() { 
-	return GeneNorth;
-}
-
-// 동쪽만 가능한 경우
-char Direc::toLocusEast() { 
-	return GeneEast;
-}
-
-// 북쪽과 동쪽이 가능한 경우. 이하 같다. 
-char Direc::toLocusNorthEast() { 
-	int i=rand()%2;
-	return (i==0) ? GeneNorth : GeneEast;
-}
-
-char Direc::toLocusSouth() { 
-	return GeneSouth;
-}
-
-char Direc::toLocusNorthSouth() { 
-	int i=rand()%2;
-	return (i==0) ? GeneNorth : GeneSouth;
-}
-
-char Direc::toLocusEastSouth() { 
-	int i=rand()%2;
-	return (i==0) ? GeneEast : GeneSouth;
-}
-
-char Direc::toLocusNorthEastSouth() { 
-	int i=rand()%3;
-	return (i==0) ? GeneNorth : (i==1) ? GeneEast : GeneSouth;
-}
-
-char Direc::toLocusWest() { 
-	return GeneWest;
-}
-
-char Direc::toLocusNorthWest() { 
-	int i=rand()%2;
-	return (i==0) ? GeneNorth : GeneWest;
-}
-
-char Direc::toLocusEastWest() { 
-	int i=rand()%2;
-	return (i==0) ? GeneEast : GeneWest;
-}
-
-char Direc::toLocusNorthEastWest() {
-	int i=rand()%3;
-	return (i==0) ? GeneNorth : (i==1) ? GeneEast : GeneWest;
-}
-
-char Direc::toLocusSouthWest() { 
-	int i=rand()%2;
-	return (i==0) ? GeneSouth : GeneWest;
-}
-
-char Direc::toLocusNorthSouthWest() { 
-	int i=rand()%3;
-	return (i==0) ? GeneNorth : (i==1) ? GeneSouth : GeneWest;
-}
-
-char Direc::toLocusEastSouthWest() { 
-	int i=rand()%3;
-	return (i==0) ? GeneEast : (i==1) ? GeneSouth : GeneWest;
-}
-
-char Direc::toLocusNorthEastSouthWest() { 
-	int i=rand()%4;
-	return (i==0) ? GeneNorth : (i==1) ? GeneEast : (i==3) ? GeneSouth : GeneWest;
-}
 #endif

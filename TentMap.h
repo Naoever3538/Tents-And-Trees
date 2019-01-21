@@ -42,7 +42,18 @@ class TreeCheck{
 
 	//家戈磊
 	~TreeCheck();
+
+	//立辟 
+	const char *const operator[](const int i) const;
 };
+
+
+//立辟 
+const char *const TreeCheck::operator[](const int i) const{
+	return this->CollisMap[i];
+}
+
+
 
 //积己磊 
 TreeCheck::TreeCheck() : K(0), L(0), CollisMap(NULL){
